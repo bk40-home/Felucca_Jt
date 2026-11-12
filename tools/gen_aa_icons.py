@@ -64,6 +64,7 @@ LEGACY = {
     "tape": "symbol_tape", "mouth": "symbol_mouth", "trio": "symbol_primitives_o",
     "drawbar": ("symbol_drawbar", "ui_slider_vertical"), "slice": "symbol_comb", "grain": "symbol_cloud_o", "phys": "symbol_pick",
     "drum": "symbol_drum",
+    "jp": "waveform_sawtooth_ac",   # (Felucca_Jt: the JP engine, eng_jp.c; Fukiai has no Super Saw glyph)
 }
 
 # icons the redesign adds (header, dialogs, lists, menu); name -> Fukiai glyph
@@ -120,7 +121,7 @@ HUGE_DEFAULT = ["x_bat0", "x_bat1", "x_bat3", "x_bat4", "x_bat_chg", "x_usb"]   
 BIG_DEFAULT = ["x_play", "x_stop", "x_rec", "x_rec_o", "x_usb", "x_star",
                "x_cog", "x_warn", "x_speaker", "x_info", "x_eye", "midi",
                "wave", "algorithm", "phase", "bits", "sample", "mouth", "trio", "drawbar", "slice", "grain",
-               "phys", "drum", "noise", "mod", "tempo",
+               "phys", "drum", "jp", "noise", "mod", "tempo",
                "x_song", "x_motion", "x_motion_del", "x_doctor", "x_knob", "rate", "x_bat0", "x_bat1", "x_bat3", "x_bat4", "x_bat_chg",
                "x_nofile"]
 

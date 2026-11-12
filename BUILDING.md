@@ -82,6 +82,7 @@ Build options (environment, `0` or `1`; defaults in `firmware/src/felucca.c`, `c
 | `FELUCCA_ICONS` | 1 | parameter icons on the knob cards |
 | `FELUCCA_FM4` | 0 | the retired DIGITAL engine (4-operator FM) instead of its FM6 conversion |
 | `FELUCCA_ADPCM` | 0 | the ADPCM engine (engine 14, `firmware/src/eng_adpcm.c`): kept in the tree, not built by default. On the FM-1 one of its voices costs about three ANALOG voices (8 voices on one part: 54 % CPU, against 17 % for ANALOG; on all four parts the audio drops out); the figures are in `eng_adpcm.c` |
+| `FELUCCA_JP` | 1 | the JP engine (engine 14 in ADPCM's place, `firmware/src/eng_jp.c`, from M-vance): a JP-8000 / JP-8080 voice (Super Saw, the JP's saw / square / triangle-mod / feedback oscillators, sync, ring, X-MOD, the JP filter at -12 / -24). `0`: Felucca as it is. Not with `FELUCCA_ADPCM=1` (the same engine number). Its tables: `python3 tools/gen_jp_tables.py tools/jp_laws.json firmware/src/eng_jp_tables.h` |
 
 `FELUCCA_USB_LAYOUT` (`0` to `3`, default `0`) picks other USB descriptor layouts for testing; see
 `firmware/bsp/chip/usb.c`.

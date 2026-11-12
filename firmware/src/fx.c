@@ -873,6 +873,10 @@ static const uint16_t ENG_VCOST[NENGINES] = {163, FELUCCA_FM4 ? 181 : 0, 162, 67
 #if FELUCCA_ADPCM
                                              168,      /* ADPCM (ORGAN, 1693 instructions / sample at 8 notes) */
 #endif
+#if FELUCCA_JP
+                                             240,      /* JP (SUPERSAW, the heaviest: an estimate from the eng_jp host
+                                                        * bench, 1.55 x ANALOG's render; tests/regress.c to confirm) */
+#endif
 };
 #endif
 

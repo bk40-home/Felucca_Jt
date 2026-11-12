@@ -47,6 +47,9 @@ static uint8_t eng_mem_owner[NPART];       /* engine index + 1 whose state is in
 #if FELUCCA_ADPCM
 #include "eng_adpcm.c"           /* ADPCM: BRR waves and an FIR echo, its DSP ported from snes_spc (adpcm_dsp.c, LGPL-2.1+) */
 #endif
+#if FELUCCA_JP
+#include "eng_jp.c"              /* JP: the JP-8000 / JP-8080 voice of M-vance (Kris Bishop, GPL-3.0), its tables eng_jp_tables.h */
+#endif
 
 /* the editor protocol, user presets and projects store these indices: append, never reorder */
 static const engine_t *const ENGINES[NENGINES] = {
@@ -72,6 +75,9 @@ static const engine_t *const ENGINES[NENGINES] = {
 #endif
 #if FELUCCA_ADPCM
     &ENG_ADPCM,                  /* 14 (ENGI_ADPCM; FELUCCA_ADPCM=0 builds without it) */
+#endif
+#if FELUCCA_JP
+    &ENG_JP,                     /* 14 (ENGI_JP; FELUCCA_JP=0 builds without it; never with ADPCM) */
 #endif
 };
 
@@ -135,6 +141,9 @@ static const uint8_t ENGINE_ORDER[NENG_SHOWN] = {
     10,                          /* DRUM */
 #if FELUCCA_ADPCM
     14,                          /* ADPCM (1.8): last, so the EDIT layer's white keys keep the 13 above (ui_layer.c LY_ENG_KEYS) */
+#endif
+#if FELUCCA_JP
+    14,                          /* JP: last, as ADPCM (picked with PRESETS' ENG knob; the EDIT layer's keys stay as they are) */
 #endif
 };
 

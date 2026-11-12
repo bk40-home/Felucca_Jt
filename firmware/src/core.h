@@ -35,9 +35,21 @@
 #if FELUCCA_ADPCM && !FELUCCA_SLICE
 #error "FELUCCA_ADPCM needs FELUCCA_SLICE (ADPCM is engine 14, after SLICE)"
 #endif
-#define NENGINES (13 + FELUCCA_SLICE + FELUCCA_ADPCM)   /* SLICE (13), then ADPCM (14): the other engines keep their
-                                                         * numbers */
+#ifndef FELUCCA_JP
+#define FELUCCA_JP 1             /* the JP engine (eng_jp.c, from M-vance), engine 14 in ADPCM's place: built by default
+                                  * in this fork (FELUCCA_JP=0: Felucca as it is). On the FM-1 a voice costs about two to
+                                  * three ANALOG voices (eng_jp.c, the figures) */
+#endif
+#if FELUCCA_JP && FELUCCA_ADPCM
+#error "FELUCCA_JP and FELUCCA_ADPCM are both engine 14: build one (FELUCCA_JP=0 for ADPCM)"
+#endif
+#if FELUCCA_JP && !FELUCCA_SLICE
+#error "FELUCCA_JP needs FELUCCA_SLICE (JP is engine 14, after SLICE)"
+#endif
+#define NENGINES (13 + FELUCCA_SLICE + FELUCCA_ADPCM + FELUCCA_JP)   /* SLICE (13), then ADPCM or JP (14): the other
+                                                                      * engines keep their numbers */
 #define ENGI_ADPCM 14u
+#define ENGI_JP 14u                 /* (a build has one of the two) */
 #define ENGI_DIGITAL 1u          /* reserved without FELUCCA_FM4: never selectable (eng_ok), its sounds load as FM6 */
 #define NENG_SHOWN (NENGINES - !FELUCCA_FM4)   /* the engines one can pick: PRESETS, the EDIT layer, the editor,
                                                 * in the display order of engines.c ENGINE_ORDER */

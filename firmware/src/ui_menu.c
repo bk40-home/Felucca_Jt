@@ -57,6 +57,12 @@ static const menu_credit_t MENU_CREDITS[] = {
     {"Shay Green, ported by ugotworms / LGPL-2.1+", MC_TEXT},
     {"", MC_TEXT},
 #endif
+#if FELUCCA_JP
+    {"JP ENGINE", MC_TITLE},
+    {"Kris Bishop, from M-vance / GPL-3.0", MC_TEXT},
+    {"https://github.com/bk40-home/M-vance", MC_URL},
+    {"", MC_TEXT},
+#endif
     {"DAISYSP", MC_TITLE},
     {"Electrosmith, Emilie Gillet", MC_TEXT},
     {"MIT", MC_TEXT},

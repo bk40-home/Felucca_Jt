@@ -4,7 +4,8 @@
 /* Stable engine/preset references; fixed capacity independent of optional engines. Engines 0..13 have a row of
  * favourites each (a bit per factory preset); rows 14 and 15 hold the MIDI LEARN map (midi_learn.c) and settings
  * (settings_persist.c), so an engine from 14 on keeps its favourites in a settings byte of its own: ADPCM (1.8, 8
- * presets) in factory[15][13], a byte no firmware before it used (kept there as saved) */
+ * presets) in factory[15][13], a byte no firmware before it used (kept there as saved). JP takes engine 14 in
+ * ADPCM's place (a build has one of the two) and its byte, so it has 8 presets too (row 15 has no other free byte) */
 #define FAV_ENGINES 14u
 typedef struct {
     uint8_t factory[16][32]; /* engine 0..15, preset 0..255 */
@@ -17,8 +18,8 @@ static uint8_t *fav_bit(uint32_t engine, uint32_t preset, uint8_t *mask)   /* th
         *mask = (uint8_t)(1u << (preset % 8u));
         return &favorites.factory[engine][preset / 8u];
     }
-#if FELUCCA_ADPCM
-    if (engine == ENGI_ADPCM && preset < 8u) {
+#if FELUCCA_ADPCM || FELUCCA_JP
+    if (engine == 14u && preset < 8u) {          /* ENGI_ADPCM / ENGI_JP */
         *mask = (uint8_t)(1u << preset);
         return &favorites.factory[15][13];
     }

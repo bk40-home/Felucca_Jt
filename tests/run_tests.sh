@@ -344,8 +344,10 @@ if [ -f build/gen/felucca_tables.h ]; then
     if python3 -c "import PIL" 2>/dev/null; then python3 tests/ui_render.py build/ui_new build/ui_slot; fi
     $CC -w -DFELUCCA_FM4=1 -Ibuild/gen -Ifirmware/src -o "$OUT/ui_test_fm4" tests/ui_test.c -lm
     run "UI built with FELUCCA_FM4=1 (DIGITAL, kept in the tree): its OP pages, EDIT cycle, algorithm charts" "$OUT/ui_test_fm4"
-    $CC -w -DFELUCCA_ADPCM=1 -Ibuild/gen -Ifirmware/src -o "$OUT/ui_test_adpcm" tests/ui_test.c -lm
+    $CC -w -DFELUCCA_ADPCM=1 -DFELUCCA_JP=0 -Ibuild/gen -Ifirmware/src -o "$OUT/ui_test_adpcm" tests/ui_test.c -lm
     run "UI built with FELUCCA_ADPCM=1 (off by default): ADPCM last in PRESETS, no EDIT key (INIT stays on E5), its favourites" "$OUT/ui_test_adpcm"
+    $CC -w -DFELUCCA_JP=0 -Ibuild/gen -Ifirmware/src -o "$OUT/ui_test_nojp" tests/ui_test.c -lm
+    run "UI built with FELUCCA_JP=0 (Felucca as it is): 13 engines + DRUM, no engine 14" "$OUT/ui_test_nojp"
     $CC -O1 -w -DFELUCCA_FM4=1 "-DFELUCCA_VERSION=\"$FV\"" -Ibuild/gen -Ifirmware/src -Itests -o "$OUT/ui_render_fm4" tests/ui_render.c -lm
     mkdir -p build/ui_fm4/ppm build/ui_fm4_slot
     run "UI renders with FELUCCA_FM4=1: DIGITAL's screens (EDIT, OP ENV, the 8 algorithm charts), lint, GREY gray, MONO neutral" \
@@ -451,7 +453,7 @@ if [ -f build/gen/felucca_tables.h ]; then
             "$OUT/adpcm_ref" "$OUT/adpcm_ref.bin" >/dev/null
             REF="$OUT/adpcm_ref.bin"
         fi
-        $CC -O2 -w -DFELUCCA_ADPCM=1 -Ibuild/gen -Ifirmware/src -Itests -o "$OUT/adpcm_test" tests/adpcm_test.c -lm
+        $CC -O2 -w -DFELUCCA_ADPCM=1 -DFELUCCA_JP=0 -Ibuild/gen -Ifirmware/src -Itests -o "$OUT/adpcm_test" tests/adpcm_test.c -lm
         mkdir -p build/adpcm_demo
         run "ADPCM (FELUCCA_ADPCM=1, off by default): the voice against snes_spc (with SNES_SPC), counters, presets, pitch, the engine memory, demos" \
             "$OUT/adpcm_test" "$REF" build/adpcm_demo

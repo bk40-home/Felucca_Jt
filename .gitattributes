@@ -1,0 +1,8 @@
+# Felucca_Jt line endings: Windows checkout (core.autocrlf: CRLF in the working tree), built and tested in WSL.
+# LF for what WSL runs, and for the files the JP tests compare byte for byte.
+*.sh text eol=lf
+*.py text eol=lf
+# tests/*.txt: goldens and baselines the C tests read with fgets and compare as strings (union_test strips \n only).
+tests/*.txt text eol=lf
+firmware/src/eng_jp_tables.h text eol=lf
+tests/jp/jp_golden.txt text eol=lf

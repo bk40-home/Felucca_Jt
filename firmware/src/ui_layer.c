@@ -14,9 +14,9 @@
  *              GLO + PLAY: from the top without stopping
  *   SCL  SET   any key: its note name is ROOT; KNOB 1..4 ROOT SCL CHRD VOIC (LY_SCL: the SCL page's first two,
  *              the CHORD page's two; QNT TRN stay on SCL); the LEDs show the root lit and the scale's notes breathing
- *   EDIT SET   the white keys from F3: the engines in PRESETS order (one key each, the first LY_ENG_KEYS (13) one can
- *              pick: engines.c eng_vis; ADPCM, last, only with PRESETS' ENG knob), the next white key INIT (LY_INIT: E5),
- *              the next CLEAN INIT (LY_CLEAN: F5, 1.5.5)
+ *   EDIT SET   the white keys from F3: the engines in PRESETS order (one key each, the first LY_ENG_KEYS one can
+ *              pick: engines.c eng_vis; ADPCM, last, only with PRESETS' ENG knob; Felucca_Jt: JP, last, on E5), the
+ *              next white key INIT (LY_INIT: E5, F5 with JP), the next CLEAN INIT (LY_CLEAN: F5, G5 with JP; 1.5.5)
  *              (the dialog); KNOB 1 ENG, 2 No. (the engine's sounds), 3 FAV. Sound loads as on PRESETS: the steps
  *              stay, SAVE held undoes, the editor gets RELOAD; they apply while playing too. 1.4.1: the black keys
  *              the selected track's engine's quick actions (EQA below: DRUM 1..8 its lanes' MUTE; other engines
@@ -75,9 +75,13 @@ static const page_t *ly_page(uint32_t l) { return l == LAYER_SCL ? &LY_SCL : l =
 #define LY_OPEN 2u                     /* ui.ly_t0: the map opened (no tap any more) */
 #define LY_COMBO 4u                    /* .. by a combo */
 #define LY_DEAD 8u                     /* .. pressed where there is no layer: does nothing */
-#define LY_ENG_KEYS ((uint32_t)(NENG_SHOWN - FELUCCA_ADPCM))   /* EDIT: white keys for the engines before ADPCM (1.8: last
-                                        * in engines.c ENGINE_ORDER, picked with PRESETS' ENG knob), so INIT and CLEAN INIT
-                                        * stay where they were: 13 engines from F3, INIT E5 (14 and F5 with FELUCCA_FM4) */
+#define LY_ENG_KEYS ((uint32_t)(NENG_SHOWN - FELUCCA_ADPCM - (FELUCCA_JP && FELUCCA_FM4)))   /* EDIT: white keys for the
+                                        * engines. ADPCM (engine 14; 1.8: last in engines.c ENGINE_ORDER) has none, it is
+                                        * picked with the ENG knob, so INIT and CLEAN INIT stay where they were: 13 engines
+                                        * from F3, INIT E5 (14 and F5 with FELUCCA_FM4). Felucca_Jt: JP (engine 14 in
+                                        * ADPCM's place, last) has E5, INIT F5, CLEAN INIT G5: 16 cells, 4 full rows
+                                        * (layer_edit). With FELUCCA_FM4 too, 15 engines + INIT + CLEAN would need 17 of
+                                        * the 16 white keys, so there JP has none, as ADPCM (KNOB 1 ENG still reaches it) */
 #define LY_INIT LY_ENG_KEYS            /* .. INIT, the white key after them */
 #define LY_CLEAN (LY_INIT + 1u)         /* .. and CLEAN INIT's, the next (1.5.5, #190: F5) */
 typedef char ly_init_fits[LY_CLEAN < 16u ? 1 : -1];   /* (a white key: F3 .. G5) */

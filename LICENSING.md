@@ -20,6 +20,8 @@ Four source files are ports and keep the licence of their originals:
 `firmware/src/phys_dsp.c` (DaisySP, MIT), `firmware/src/phys_symp.c` (Rings, MIT),
 `firmware/src/fm6_core.c` (msfa, Apache-2.0) and `firmware/src/adpcm_dsp.c` (snes_spc, LGPL-2.1-or-later; built only
 with `FELUCCA_ADPCM=1`, not by default). The firmware built with them is GPL-3.0-only as a whole.
+`firmware/src/eng_jp.c`, `firmware/src/eng_jp_tables.h` and `tools/gen_jp_tables.py` (the JP engine, `FELUCCA_JP`) are
+Kris Bishop's, from M-vance, under GPL-3.0-only like the rest; `tools/jp_laws.json` is M-vance's table of the JT-8000's laws.
 
 Six engines and the code they share are under the MIT licence, not the GPL. They are
 Hügelton Instruments' own work and live in their own repository, Felucca-Engines
